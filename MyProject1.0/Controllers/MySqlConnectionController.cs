@@ -8,7 +8,7 @@ using DBConnection;
 namespace MyProject1._0.Controllers
 {
     [Route("api/[controller]")]
-    public class SampleDataController : Controller
+    public class MySqlConnectionController : Controller
     {
         private static string[] Summaries = new[]
         {
