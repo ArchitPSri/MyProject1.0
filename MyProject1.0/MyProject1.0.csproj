@@ -17,6 +17,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
+    <PackageReference Include="System.Drawing.Common" Version="4.5.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +27,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="DAO">
+      <HintPath>..\..\..\DAO\DAO\bin\Debug\netstandard2.0\DAO.dll</HintPath>
+    </Reference>
     <Reference Include="DBConnection">
       <HintPath>..\..\..\DBConnection\DBConnection\bin\Debug\netstandard2.0\DBConnection.dll</HintPath>
     </Reference>
