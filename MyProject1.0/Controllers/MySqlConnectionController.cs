@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DBConnection;
+using DAO;
 
 namespace MyProject1._0.Controllers
 {
@@ -48,11 +49,15 @@ namespace MyProject1._0.Controllers
             {
                 try
                 {
-                    DBConnectionClass dBConnection = new DBConnectionClass();
+                    //DBConnectionClass dBConnection = new DBConnectionClass();
 
-                    int result = dBConnection.Demo(10);
-                    System.Diagnostics.Debug.WriteLine(result);
-                    Console.WriteLine(result);
+                    //int result = dBConnection.Demo(10);
+                    //System.Diagnostics.Debug.WriteLine(result);
+                    //Console.WriteLine(result);
+                    GetData getData = new GetData();
+                    getData.CallDB();
+
+               
                 }
                 catch(Exception e)
                 {
