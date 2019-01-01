@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using DBConnection;
 using DAO;
+using System.Data;
+using System.Data.SqlClient;
+
 
 namespace MyProject1._0.Controllers
 {
@@ -45,23 +48,18 @@ namespace MyProject1._0.Controllers
                 
             }
 
+            private string databaseName = string.Empty;
+            
             public void CallDB()
             {
                 try
                 {
-                    //DBConnectionClass dBConnection = new DBConnectionClass();
-
-                    //int result = dBConnection.Demo(10);
-                    //System.Diagnostics.Debug.WriteLine(result);
-                    //Console.WriteLine(result);
                     GetData getData = new GetData();
                     getData.CallDB();
-
-               
                 }
                 catch(Exception e)
                 {
-                    System.Diagnostics.Debug.WriteLine(e);
+                    System.Diagnostics.Debug.WriteLine("    CONN FAILED     ");
                     Console.WriteLine(e);
                 }
             }
