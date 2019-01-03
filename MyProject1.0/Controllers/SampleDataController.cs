@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using DBConnection;
 
 namespace MyProject1._0.Controllers
 {
@@ -37,28 +36,10 @@ namespace MyProject1._0.Controllers
             {
                 get
                 {
-                    CallDB();
                     return 32 + (int)(TemperatureC / 0.5556);
                     
                 }
                 
-            }
-
-            public void CallDB()
-            {
-                try
-                {
-                    DBConnectionClass dBConnection = new DBConnectionClass();
-
-                    int result = dBConnection.Demo(10);
-                    System.Diagnostics.Debug.WriteLine(result);
-                    Console.WriteLine(result);
-                }
-                catch(Exception e)
-                {
-                    System.Diagnostics.Debug.WriteLine(e);
-                    Console.WriteLine(e);
-                }
             }
         }
     }
