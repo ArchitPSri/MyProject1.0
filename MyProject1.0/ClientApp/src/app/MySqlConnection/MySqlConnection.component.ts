@@ -6,19 +6,19 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './MySqlConnection.component.html'
 })
 export class MySqlConnectionComponent {
-  public forecasts: WeatherForecast[];
+  public names: Columns[];
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<WeatherForecast[]>(baseUrl + 'api/MySqlConnection/WeatherForecasts').subscribe(result => {
-      this.forecasts = result;
+    http.get<Columns[]>(baseUrl + 'api/MySqlConnection/NamesList').subscribe(result => {
+      this.names = result;
+      console.log("******************");
+      console.log(this.names);
+
     }, error => console.error(error));
   }
 }
 
-interface WeatherForecast {
-  dateFormatted: string;
-  temperatureC: number;
-  temperatureF: number;
-  summary: string;
+interface Columns {
+  firstName: string;
+  lastName: string;
 }
-''

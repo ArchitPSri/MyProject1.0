@@ -7,6 +7,7 @@ using DBConnection;
 using DAO;
 using System.Data;
 using System.Data.SqlClient;
+using Entities;
 
 
 namespace MyProject1._0.Controllers
@@ -14,55 +15,36 @@ namespace MyProject1._0.Controllers
     [Route("api/[controller]")]
     public class MySqlConnectionController : Controller
     {
-        private static string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
         [HttpGet("[action]")]
-        public IEnumerable<WeatherForecast> WeatherForecasts()
+        public List<DBConnectionTesting> NamesList()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            GetData getData = new GetData();
+            List<DBConnectionTesting> data = new List<DBConnectionTesting>();
+            int count = 0;
+            try
             {
-                DateFormatted = DateTime.Now.AddDays(index).ToString("d"),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            });
-        }
-
-        public class WeatherForecast
-        {
-            public string DateFormatted { get; set; }
-            public int TemperatureC { get; set; }
-            public string Summary { get; set; }
-
-            public int TemperatureF
-            {
-                get
+                data = getData.CallDB();
+                if (data != null)
                 {
-                    CallDB();
-                    return 32 + (int)(TemperatureC / 0.5556);
-                    
+                    foreach (DBConnectionTesting person in data)
+                    {
+                        System.Diagnostics.Debug.WriteLine(count++);
+                        System.Diagnostics.Debug.WriteLine(person.FirstName + "," + person.LastName);
+                    }
                 }
-                
-            }
-
-            private string databaseName = string.Empty;
-            
-            public void CallDB()
-            {
-                try
+                else
                 {
-                    GetData getData = new GetData();
-                    getData.CallDB();
-                }
-                catch(Exception e)
-                {
-                    System.Diagnostics.Debug.WriteLine("    CONN FAILED     ");
-                    Console.WriteLine(e);
+                    System.Diagnostics.Debug.WriteLine("Data is null");
+                    return null;
                 }
             }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("Controller Failed");
+                Console.WriteLine(e);
+            }
+
+            return data;
         }
     }
 }
