@@ -11,9 +11,6 @@ export class MySqlConnectionComponent {
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     http.get<Columns[]>(baseUrl + 'api/MySqlConnection/NamesList').subscribe(result => {
       this.names = result;
-      console.log("******************");
-      console.log(this.names);
-
     }, error => console.error(error));
   }
 }

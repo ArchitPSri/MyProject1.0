@@ -8,10 +8,13 @@ using DAO;
 using System.Data;
 using System.Data.SqlClient;
 using Entities;
+using Newtonsoft.Json;
+using System.Net.Http;
 
 
 namespace MyProject1._0.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     public class MySqlConnectionController : Controller
     {
@@ -20,31 +23,42 @@ namespace MyProject1._0.Controllers
         {
             GetData getData = new GetData();
             List<DBConnectionTesting> data = new List<DBConnectionTesting>();
-            int count = 0;
+
             try
             {
                 data = getData.CallDB();
-                if (data != null)
-                {
-                    foreach (DBConnectionTesting person in data)
-                    {
-                        System.Diagnostics.Debug.WriteLine(count++);
-                        System.Diagnostics.Debug.WriteLine(person.FirstName + "," + person.LastName);
-                    }
-                }
-                else
-                {
-                    System.Diagnostics.Debug.WriteLine("Data is null");
-                    return null;
-                }
             }
             catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine("Controller Failed");
-                Console.WriteLine(e);
+                throw e;
             }
 
             return data;
+        }
+        
+        [HttpPost("[action]")]
+        public string SaveNamesList([FromBody] DBConnectionTesting data)
+        {
+            try
+            {
+                string Value = null;
+                if (data != null)
+                {
+                    SendData sendData = new SendData();
+                    Value = sendData.CallDBToSend(data);
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine("************Data is null*************");
+                }
+                return Value;
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine("Controller Failed");
+                throw e;
+            }
         }
     }
 }
